@@ -124,7 +124,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         {/* Description */}
         <div className="flex flex-col gap-2">
           <label className="text-xs font-black text-(--muted-foreground) uppercase tracking-widest flex items-center gap-2">
-            <FileText size={14} /> Description
+            <FileText size={14} className="text-accent" /> Description
           </label>
           <input
             type="text"
@@ -139,7 +139,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         {/* Amount */}
         <div className="flex flex-col gap-2">
           <label className="text-xs font-black text-(--muted-foreground) uppercase tracking-widest flex items-center gap-2">
-            <IndianRupee size={14} /> Amount (₹)
+            <IndianRupee size={14} className="text-accent" /> Amount (₹)
           </label>
           <input
             type="number"
@@ -154,7 +154,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         {/* Paid By */}
         <div className="flex flex-col gap-2">
           <label className="text-xs font-black text-(--muted-foreground) uppercase tracking-widest flex items-center gap-2">
-            <User size={14} /> Paid By
+            <User size={14} className="text-accent" /> Paid By
           </label>
           <select
             className="bg-(--background) border border-(--border) rounded-xl px-4 py-3 outline-none focus:border-accent text-(--foreground) transition-all font-bold appearance-none cursor-pointer"
@@ -171,7 +171,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
             <label className="text-xs font-black text-(--muted-foreground) uppercase tracking-widest flex items-center gap-2">
-              <Tag size={14} /> Category
+              <Tag size={14} className="text-accent" /> Category
             </label>
             <button 
               type="button" 
@@ -216,7 +216,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         {/* Date */}
         <div className="flex flex-col gap-2">
           <label className="text-xs font-black text-(--muted-foreground) uppercase tracking-widest flex items-center gap-2">
-            <Calendar size={14} /> Date
+            <Calendar size={14} className="text-accent" /> Date
           </label>
           <input
             type="date"
@@ -230,7 +230,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         {/* Note */}
         <div className="flex flex-col gap-2">
           <label className="text-xs font-black text-(--muted-foreground) uppercase tracking-widest flex items-center gap-2">
-            <FileText size={14} /> Note (Optional)
+            <FileText size={14} className="text-accent" /> Note (Optional)
           </label>
           <input
             type="text"

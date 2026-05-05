@@ -99,3 +99,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
 }
+
+/* Native Calendar Icon Styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%) brightness(200%) contrast(100%) !important;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}

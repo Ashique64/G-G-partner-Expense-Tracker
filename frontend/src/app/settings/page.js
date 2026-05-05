@@ -58,34 +58,34 @@ export default function SettingsPage() {
   )
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col gap-8">
-      <div className="flex items-center justify-between">
+    <div className="max-w-2xl mx-auto flex flex-col gap-10 animate-fade-in py-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">Partner Settings</h1>
-          <p className="text-gray-500">Update the names of the business partners.</p>
+          <h1 className="text-4xl font-black italic uppercase tracking-tight text-(--foreground) mb-2">Partner Settings</h1>
+          <p className="text-(--muted-foreground) font-medium">Manage and update business partner identities</p>
         </div>
         {showSuccess && (
-          <div className="flex items-center gap-2 text-green-600 bg-green-50 px-3 py-1.5 rounded-full text-sm font-medium animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-2 text-accent bg-accent/10 border border-accent/20 px-4 py-2 rounded-2xl text-sm font-black uppercase tracking-widest animate-in fade-in slide-in-from-top-2">
             <CheckCircle2 size={16} />
-            Changes saved
+            Updated
           </div>
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 gap-6">
         {partners.map((partner) => (
-          <div key={partner.id} className="bg-white border rounded-xl p-6 shadow-sm flex items-center gap-4">
-            <div className="h-12 w-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">
-              <User size={24} />
+          <div key={partner.id} className="bg-(--card) border border-(--border) rounded-3xl p-6 shadow-2xl flex items-center gap-6 group hover:border-accent transition-all">
+            <div className="h-16 w-16 bg-(--background) border border-(--border) rounded-2xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform shadow-inner">
+              <User size={32} />
             </div>
             
             <div className="flex-1">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1 block">
+              <label className="text-[10px] font-black text-(--muted-foreground) uppercase tracking-[0.2em] mb-2 block opacity-70">
                 Partner Name
               </label>
               <input
                 type="text"
-                className="w-full text-lg font-bold outline-none focus:text-black border-b border-transparent focus:border-gray-200 pb-1"
+                className="w-full text-2xl font-black text-(--foreground) bg-transparent outline-none border-b-2 border-transparent focus:border-accent pb-1 transition-all"
                 value={partner.name}
                 onChange={(e) => handleNameChange(partner.id, e.target.value)}
               />
@@ -94,19 +94,22 @@ export default function SettingsPage() {
             <button
               onClick={() => savePartner(partner)}
               disabled={savingId === partner.id}
-              className="bg-black text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center gap-2 disabled:bg-gray-400"
+              className="h-14 px-6 bg-accent text-white rounded-2xl font-black uppercase tracking-widest hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-3 shadow-lg shadow-accent/20 disabled:opacity-50 disabled:translate-y-0"
             >
-              {savingId === partner.id ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
-              Save
+              {savingId === partner.id ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
+              <span className="hidden md:inline">Save</span>
             </button>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 p-6 bg-gray-50 border rounded-xl border-dashed">
-        <h3 className="font-bold mb-2">Adding more partners?</h3>
-        <p className="text-sm text-gray-500 leading-relaxed">
-          The current version is optimized for a 3-partner profit/expense sharing model. Contact support if you need to scale the team.
+      <div className="mt-12 p-8 bg-accent/5 border border-dashed border-accent/20 rounded-4xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-8 opacity-5">
+            <User size={120} />
+        </div>
+        <h3 className="text-lg font-black uppercase tracking-widest text-accent mb-3">Scaling the Team?</h3>
+        <p className="text-sm text-(--muted-foreground) leading-relaxed font-medium max-w-lg">
+          The current financial logic is precision-engineered for a 3-partner model. If you need to add more partners or change the sharing ratios, please contact system administration.
         </p>
       </div>
     </div>

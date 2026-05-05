@@ -79,11 +79,11 @@ export default function SettlementPanel({ summary }) {
           <div className="grid grid-cols-1 gap-4 relative">
             {settlements.map((s, idx) => (
               <div key={idx} className="flex flex-col md:flex-row items-center justify-between bg-(--background) border border-(--border) rounded-2xl p-6 transition-all hover:border-accent group">
-                <div className="flex flex-col mb-4 md:mb-0">
+                <div className="flex flex-col items-center md:items-start mb-4 md:mb-0">
                   <span className="text-[10px] text-destructive uppercase font-black tracking-[0.2em] mb-2 flex items-center gap-2">
                     <TrendingDown size={12} /> Debtor
                   </span>
-                  <span className="text-xl font-black">{s.from}</span>
+                  <span className="text-xl font-black text-center md:text-left">{s.from}</span>
                 </div>
                 
                 <div className="flex flex-col items-center flex-1 mx-8 mb-4 md:mb-0">
@@ -97,8 +97,8 @@ export default function SettlementPanel({ summary }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col text-right">
-                  <span className="text-[10px] text-accent uppercase font-black tracking-[0.2em] mb-2 flex items-center justify-end gap-2">
+                <div className="flex flex-col items-center md:items-end text-center md:text-right">
+                  <span className="text-[10px] text-accent uppercase font-black tracking-[0.2em] mb-2 flex items-center justify-center md:justify-end gap-2">
                     <TrendingUp size={12} /> Beneficiary
                   </span>
                   <span className="text-xl font-black">{s.to}</span>
