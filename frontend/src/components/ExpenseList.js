@@ -123,23 +123,36 @@ export default function ExpenseList({ expenses, loading, onDelete, onUpdate }) {
               {uniqueCategories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
 
-            <div className="flex-1 md:flex-none flex items-center gap-3 bg-(--background) border border-(--border) rounded-xl px-4 py-2 text-sm font-bold text-(--foreground)">
-              <Calendar size={16} className="text-accent" />
+            <div 
+              className="flex-1 md:flex-none flex items-center gap-3 bg-(--background) border border-(--border) rounded-xl px-4 py-2 text-sm font-bold text-(--foreground) focus-within:border-accent transition-all shadow-inner cursor-pointer"
+              onClick={() => document.getElementById('date-filter-input')?.showPicker()}
+            >
+              <Calendar size={16} className="text-accent shrink-0" />
               <input 
+                id="date-filter-input"
                 type="date" 
-                className="bg-transparent outline-none cursor-pointer w-full"
+                className="bg-transparent outline-none cursor-pointer w-full text-(--foreground) [color-scheme:dark] dark:[color-scheme:dark] light:[color-scheme:light] min-w-[120px] [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+                style={{ color: 'inherit' }}
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)}
               />
               {dateFilter && (
-                <button onClick={() => setDateFilter('')} className="hover:text-accent transition-colors p-1"><X size={16} /></button>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDateFilter('');
+                  }} 
+                  className="hover:text-accent transition-colors p-1 shrink-0"
+                >
+                  <X size={16} />
+                </button>
               )}
             </div>
           </div>
         </div>
 
-        <div className="bg-accent/10 border border-accent/20 rounded-2xl px-6 py-4 flex justify-between items-center">
-          <span className="text-[10px] text-accent uppercase font-black tracking-[0.2em] opacity-70">Total in View</span>
+        <div className="bg-accent/10 border border-accent/20 rounded-2xl px-6 py-4 flex justify-between items-center shadow-inner">
+          <span className="text-[10px] text-accent font-black uppercase tracking-[0.2em] opacity-100">Total in View</span>
           <span className="text-2xl font-black text-(--foreground) tracking-tight">₹{totalAmount.toLocaleString('en-IN')}</span>
         </div>
       </div>

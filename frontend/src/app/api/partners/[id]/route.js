@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 export async function PUT(request, { params }) {
   try {
     const { id } = await params
-    const { name } = await request.json()
+    const { name, email } = await request.json()
 
     if (!name) {
       return NextResponse.json({ error: 'Name is required' }, { status: 400 })
@@ -12,7 +12,7 @@ export async function PUT(request, { params }) {
 
     const { data, error } = await supabase
       .from('partners')
-      .update({ name })
+      .update({ name, email })
       .eq('id', id)
       .select()
 

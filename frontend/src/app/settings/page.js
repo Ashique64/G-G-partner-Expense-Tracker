@@ -25,20 +25,27 @@ export default function SettingsPage() {
     setPartners(prev => prev.map(p => p.id === id ? { ...p, name: newName } : p))
   }
 
+  const handleEmailChange = (id, newEmail) => {
+    setPartners(prev => prev.map(p => p.id === id ? { ...p, email: newEmail } : p))
+  }
+
   const savePartner = async (partner) => {
     setSavingId(partner.id)
     try {
       const res = await fetch(`/api/partners/${partner.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: partner.name })
+        body: JSON.stringify({ 
+          name: partner.name,
+          email: partner.email 
+        })
       })
 
       if (res.ok) {
         setShowSuccess(true)
         setTimeout(() => setShowSuccess(false), 3000)
       } else {
-        alert('Failed to save partner name')
+        alert('Failed to save partner info. Ensure the email field exists in your database.')
       }
     } catch (error) {
       console.error('Save error', error)
@@ -62,7 +69,7 @@ export default function SettingsPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-4xl font-black italic uppercase tracking-tight text-(--foreground) mb-2">Partner Settings</h1>
-          <p className="text-(--muted-foreground) font-medium">Manage and update business partner identities</p>
+          <p className="text-(--muted-foreground) font-medium">Link partner names to their security emails</p>
         </div>
         {showSuccess && (
           <div className="flex items-center gap-2 text-accent bg-accent/10 border border-accent/20 px-4 py-2 rounded-2xl text-sm font-black uppercase tracking-widest animate-in fade-in slide-in-from-top-2">
@@ -74,30 +81,45 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 gap-6">
         {partners.map((partner) => (
-          <div key={partner.id} className="bg-(--card) border border-(--border) rounded-3xl p-6 shadow-2xl flex items-center gap-6 group hover:border-accent transition-all">
-            <div className="h-16 w-16 bg-(--background) border border-(--border) rounded-2xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform shadow-inner">
-              <User size={32} />
+          <div key={partner.id} className="bg-(--card) border border-(--border) rounded-3xl p-8 shadow-2xl flex flex-col md:flex-row items-center gap-8 group hover:border-accent transition-all relative overflow-hidden">
+            <div className="h-20 w-20 bg-(--background) border border-(--border) rounded-3xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform shadow-inner flex-shrink-0">
+              <User size={38} />
             </div>
             
-            <div className="flex-1">
-              <label className="text-[10px] font-black text-(--muted-foreground) uppercase tracking-[0.2em] mb-2 block opacity-70">
-                Partner Name
-              </label>
-              <input
-                type="text"
-                className="w-full text-2xl font-black text-(--foreground) bg-transparent outline-none border-b-2 border-transparent focus:border-accent pb-1 transition-all"
-                value={partner.name}
-                onChange={(e) => handleNameChange(partner.id, e.target.value)}
-              />
+            <div className="flex-1 w-full space-y-5">
+              <div>
+                <label className="text-[10px] font-black text-(--muted-foreground) uppercase tracking-[0.2em] mb-2 block opacity-70">
+                  Partner Name
+                </label>
+                <input
+                  type="text"
+                  className="w-full text-2xl font-black text-(--foreground) bg-transparent outline-none border-b-2 border-transparent focus:border-accent pb-1 transition-all"
+                  value={partner.name}
+                  onChange={(e) => handleNameChange(partner.id, e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] font-black text-(--muted-foreground) uppercase tracking-[0.2em] mb-2 block opacity-70">
+                  Linked Auth Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="name@grandgrey.com"
+                  className="w-full text-sm font-bold text-accent bg-transparent outline-none border-b-2 border-transparent focus:border-accent pb-1 transition-all"
+                  value={partner.email || ''}
+                  onChange={(e) => handleEmailChange(partner.id, e.target.value)}
+                />
+              </div>
             </div>
 
             <button
               onClick={() => savePartner(partner)}
               disabled={savingId === partner.id}
-              className="h-14 px-6 bg-accent text-white rounded-2xl font-black uppercase tracking-widest hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-3 shadow-lg shadow-accent/20 disabled:opacity-50 disabled:translate-y-0"
+              className="h-16 px-8 bg-accent text-white rounded-2xl font-black uppercase tracking-widest hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-3 shadow-lg shadow-accent/20 disabled:opacity-50 disabled:translate-y-0 w-full md:w-auto justify-center"
             >
               {savingId === partner.id ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
-              <span className="hidden md:inline">Save</span>
+              <span>Save</span>
             </button>
           </div>
         ))}

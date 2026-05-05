@@ -17,6 +17,7 @@ export const metadata = {
 };
 
 import Navbar from "@/components/Navbar";
+import { AuthRedirect } from "@/components/AuthRedirect";
 
 export default function RootLayout({ children }) {
   return (
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
       data-theme="dark"
     >
       <body className="min-h-full flex flex-col bg-(--background) selection:bg-accent/30 selection:text-accent">
+        <AuthRedirect />
         {/* Subtle Background Noise/Grain for texture */}
         <div className="fixed inset-0 pointer-events-none opacity-3 mix-blend-overlay z-[-1]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
         

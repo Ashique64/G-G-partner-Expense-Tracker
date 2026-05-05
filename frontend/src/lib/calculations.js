@@ -19,6 +19,7 @@ export function calculateSettlements(partners, expenses) {
     return {
       id: partner.id,
       name: partner.name,
+      email: partner.email,
       amountPaid: paidByThisPartner,
       balance: paidByThisPartner - equalShare
     }
@@ -50,7 +51,10 @@ export function calculateSettlements(partners, expenses) {
     if (amountToTransfer > 0.01) {
       settlements.push({
         from: debtor.name,
+        fromId: debtor.id,
         to: creditor.name,
+        toId: creditor.id,
+        toEmail: creditor.email,
         amount: Math.round(amountToTransfer)
       })
     }
